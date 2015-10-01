@@ -1,10 +1,16 @@
 package dao;
 
+import com.google.gson.annotations.Expose;
+
 public class Message {
     private int id;
+    @Expose
     private int type;
+    @Expose
     private String sender;
+    @Expose
     private String msg;
+    @Expose
     private int stamp;
 
     public int getId() {
