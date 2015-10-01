@@ -36,6 +36,7 @@ public class MySqlConnection implements DataConnection {
         String sql = String.format("SELECT COUNT(*) as count FROM `%s` WHERE `%s`='%s'", table, field, value);
         ResultSet rs = executeQuery(sql);
         try {
+            rs.next();
             return rs.getInt("count") == 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -56,6 +57,7 @@ public class MySqlConnection implements DataConnection {
     public int getLastAutoId() {
         try {
             ResultSet rs = executeQuery("SELECT LAST_INSERT_ID() as id");
+            rs.next();
             return rs.getInt("id");
         } catch (SQLException e) {
             e.printStackTrace();
