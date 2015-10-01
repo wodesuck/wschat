@@ -4,11 +4,13 @@ import javax.servlet.http.HttpSession;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.Collections;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 @ServerEndpoint(value = "/wschat", configurator = WsChatConfigurator.class)
 public class WsChat {
-    private static HashSet<Session> sessions = new HashSet<>();
+    private static Set<Session> sessions = Collections.newSetFromMap(new ConcurrentHashMap<>());
     private String username = null;
 
     @OnOpen
