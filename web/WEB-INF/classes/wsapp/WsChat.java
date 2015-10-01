@@ -1,18 +1,25 @@
 package wsapp;
 
-import javax.websocket.OnClose;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
+import javax.servlet.http.HttpSession;
+import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
 import java.util.HashSet;
 
-@ServerEndpoint("/wschat")
+@ServerEndpoint(value = "/wschat", configurator = WsChatConfigurator.class)
 public class WsChat {
     private static HashSet<Session> sessions = new HashSet<>();
+    private String username = null;
 
     @OnOpen
-    public void onOpen(Session session) {
+    public void onOpen(Session session, EndpointConfig config) throws IOException {
+        HttpSession httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
+        if (httpSession != null) {
+            username = (String) httpSession.getAttribute("username");
+        }
+        if (username == null) {
+            session.close();
+        }
         sessions.add(session);
     }
 
@@ -22,13 +29,9 @@ public class WsChat {
     }
 
     @OnMessage
-    public void onMessage(String msg) {
-        try {
-            for (Session session : sessions) {
-                session.getBasicRemote().sendText(msg);
-            }
-        } catch (Exception e) {
-
+    public void onMessage(String msg) throws IOException {
+        for (Session session : sessions) {
+            session.getBasicRemote().sendText(msg);
         }
     }
 }
