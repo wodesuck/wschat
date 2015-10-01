@@ -2,6 +2,7 @@ package ajax;
 
         import com.google.gson.Gson;
         import dao.*;
+        import org.apache.commons.codec.digest.DigestUtils;
 
         import javax.servlet.ServletException;
         import javax.servlet.annotation.WebServlet;
@@ -38,7 +39,7 @@ public class AjaxRegister extends HttpServlet {
         UserDao userDao = new SqlUserDao(new MySqlConnection("wschat"));
         User user = new User();
         user.setUsername(username);
-        user.setPassword(password);
+        user.setPassword(DigestUtils.md5Hex(password + User.SALT));
         if (!userDao.insert(user)) {
             gson.toJson(new Ret(-1, "user exists"), out);
             return;

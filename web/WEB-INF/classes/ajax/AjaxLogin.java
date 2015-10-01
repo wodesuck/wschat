@@ -2,6 +2,7 @@ package ajax;
 
 import com.google.gson.Gson;
 import dao.*;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,7 +42,7 @@ public class AjaxLogin extends HttpServlet {
             gson.toJson(new Ret(-1, "user not found"), out);
             return;
         }
-        if (!user.getPassword().equals(password)) {
+        if (!user.getPassword().equals(DigestUtils.md5Hex(password + User.SALT))) {
             gson.toJson(new Ret(-2, "wrong password"), out);
             return;
         }
