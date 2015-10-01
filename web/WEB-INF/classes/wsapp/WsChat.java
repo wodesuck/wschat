@@ -1,34 +1,82 @@
 package wsapp;
 
-import javax.websocket.OnClose;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
-import javax.websocket.server.ServerEndpoint;
-import java.util.HashSet;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import dao.*;
 
-@ServerEndpoint("/wschat")
+import javax.servlet.http.HttpSession;
+import javax.websocket.*;
+import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+
+@ServerEndpoint(value = "/wschat", configurator = WsChatConfigurator.class)
 public class WsChat {
-    private static HashSet<Session> sessions = new HashSet<>();
+    private static Set<Session> sessions = Collections.newSetFromMap(new ConcurrentHashMap<>());
+    private static AtomicInteger stamp = new AtomicInteger();
+    private String username = null;
+
+    static {
+        MessageDao messageDao = new SqlMessageDao(new MySqlConnection("wschat"));
+        List<Message> messages = messageDao.get(1);
+        if (messages.size() > 0) {
+            stamp = new AtomicInteger(messages.get(0).getStamp());
+        }
+    }
 
     @OnOpen
-    public void onOpen(Session session) {
+    public void onOpen(Session session, EndpointConfig config) throws IOException {
+        HttpSession httpSession = (HttpSession) config.getUserProperties().get(HttpSession.class.getName());
+        if (httpSession != null) {
+            username = (String) httpSession.getAttribute("username");
+        }
+        if (username == null) {
+            session.close();
+            return;
+        }
         sessions.add(session);
+
+        Message message = new Message();
+        message.setType(1);
+        message.setMsg("online");
+        broadcast(message);
     }
 
     @OnClose
-    public void onClose(Session session) {
+    public void onClose(Session session) throws IOException {
+        if (username == null) {
+            return;
+        }
         sessions.remove(session);
+
+        Message message = new Message();
+        message.setType(2);
+        message.setMsg("offline");
+        broadcast(message);
     }
 
     @OnMessage
-    public void onMessage(String msg) {
-        try {
-            for (Session session : sessions) {
-                session.getBasicRemote().sendText(msg);
-            }
-        } catch (Exception e) {
+    public void onMessage(String msg) throws IOException {
+        Gson gson = new Gson();
+        Message message = gson.fromJson(msg, Message.class);
+        broadcast(message);
+    }
 
+    void broadcast(Message message) throws IOException {
+        message.setSender(username);
+        message.setStamp(stamp.incrementAndGet());
+
+        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(message);
+        for (Session session : sessions) {
+            session.getBasicRemote().sendText(json);
         }
+
+        MessageDao messageDao = new SqlMessageDao(new MySqlConnection("wschat"));
+        messageDao.insert(message);
     }
 }
