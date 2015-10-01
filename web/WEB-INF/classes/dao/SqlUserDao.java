@@ -29,7 +29,7 @@ public class SqlUserDao implements UserDao {
 
     @Override
     public boolean insert(User user) {
-        if (conn.isUnique("user", "username", user.getUsername())) {
+        if (!conn.isUnique("user", "username", user.getUsername())) {
             return false;
         }
         String sql = String.format("INSERT INTO user(username, password) VALUES('%s','%s')",
