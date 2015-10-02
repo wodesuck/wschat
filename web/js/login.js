@@ -9,7 +9,6 @@ function login() {
             if (res.err == -1) {
                 $("#msg").innerHTML = "用户不存在";
                 $("#username").value = "";
-                $("#password").value = "";
                 $("#username").focus();
             } else if (res.err == -2) {
                 $("#msg").innerHTML = "密码错误";
