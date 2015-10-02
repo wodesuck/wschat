@@ -13,13 +13,15 @@ $.ready = function (fn) {
 $.ajax = function (options) {
     var request = new XMLHttpRequest();
     request.open(options.type, options.url, true);
-    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    if (options.type == "POST" || options.type == "post") {
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    }
 
     request.onreadystatechange = function () {
         if (this.readyState === 4) {
             if (this.status >= 200 && this.status < 400) {
                 if (options.success) {
-                    options.success(this.responseText);
+                    options.success(JSON.parse(this.responseText));
                 }
             } else {
                 if (options.error) {
@@ -30,7 +32,13 @@ $.ajax = function (options) {
     };
 
     if (options.data) {
-        request.send(options.data);
+        var params = [];
+        for (var p in options.data) {
+            if (options.data.hasOwnProperty(p)) {
+                params.push(encodeURIComponent(p) + "=" + encodeURIComponent(options.data[p]));
+            }
+        }
+        request.send(params.join("&"));
     } else {
         request.send();
     }
