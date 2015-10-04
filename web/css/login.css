@@ -2,23 +2,23 @@ body {
     padding-top: 100px;
 }
 
-#login-form {
+form {
     max-width: 330px;
     margin: 0 auto;
 }
 
-#login-form input[type="text"] {
+input[type="text"] {
     margin-bottom: -1px;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
 
-#login-form input[type="password"] {
+input[type="password"] {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
 
-#login-form .alert {
+.alert {
     margin-top: 10px;
 }

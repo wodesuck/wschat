@@ -7,7 +7,7 @@
     <link href="css/login.css" rel="stylesheet">
 </head>
 <body>
-<form id="login-form">
+<form>
     <input class="block" type="text" placeholder="用户名" autofocus>
     <input class="block" type="password" placeholder="密码">
     <button class="btn btn-lg block">登录</button>
