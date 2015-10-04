@@ -8,15 +8,15 @@ import javax.servlet.http.HttpSession;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @ServerEndpoint(value = "/wschat", configurator = WsChatConfigurator.class)
 public class WsChat {
-    private static Set<Session> sessions = Collections.newSetFromMap(new ConcurrentHashMap<>());
+    private static Map<Session, String> sessions = new ConcurrentHashMap<>();
     private static AtomicInteger stamp = new AtomicInteger();
     private String username = null;
 
@@ -38,7 +38,7 @@ public class WsChat {
             session.close();
             return;
         }
-        sessions.add(session);
+        sessions.put(session, username);
 
         Message message = new Message();
         message.setType(1);
@@ -72,11 +72,15 @@ public class WsChat {
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(message);
-        for (Session session : sessions) {
+        for (Session session : sessions.keySet()) {
             session.getBasicRemote().sendText(json);
         }
 
         MessageDao messageDao = new SqlMessageDao(new MySqlConnection("wschat"));
         messageDao.insert(message);
+    }
+
+    static public Collection<String> getParticipants() {
+        return sessions.values();
     }
 }
