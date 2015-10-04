@@ -76,8 +76,10 @@ public class WsChat {
             session.getBasicRemote().sendText(json);
         }
 
-        MessageDao messageDao = new SqlMessageDao(new MySqlConnection("wschat"));
-        messageDao.insert(message);
+        if (message.getType() > 2) {
+            MessageDao messageDao = new SqlMessageDao(new MySqlConnection("wschat"));
+            messageDao.insert(message);
+        }
     }
 
     static public Collection<String> getParticipants() {
