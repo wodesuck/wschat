@@ -6,11 +6,11 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="css/login.css" rel="stylesheet">
 </head>
-<body class="container">
+<body>
 <form id="login-form">
-    <input id="username" type="text" placeholder="用户名" autofocus>
-    <input id="password" type="password" placeholder="密码">
-    <button class="btn btn-lg btn-block">登录</button>
+    <input class="block" type="text" placeholder="用户名" autofocus>
+    <input class="block" type="password" placeholder="密码">
+    <button class="btn btn-lg block">登录</button>
     <div class="alert show hide">
         <strong>登录失败！</strong><span id="msg"></span>
     </div>

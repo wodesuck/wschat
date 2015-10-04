@@ -1,19 +1,19 @@
 function login() {
     $("#login-form .alert").classList.add("hide");
-    var username = $("#username").value;
-    var password = $("#password").value;
+    var username = $("#login-form input[type='text']").value;
+    var password = $("#login-form input[type='password']").value;
     $.post("a/login", {username: username, password: password}, function (res) {
         if (res.err == 0) {
             window.location = "index.jsp";
         } else {
             if (res.err == -1) {
                 $("#msg").innerHTML = "用户不存在";
-                $("#username").value = "";
-                $("#username").focus();
+                $("#login-form input[type='text']").value = "";
+                $("#login-form input[type='text']").focus();
             } else if (res.err == -2) {
                 $("#msg").innerHTML = "密码错误";
-                $("#password").value = "";
-                $("#password").focus();
+                $("#login-form input[type='password']").value = "";
+                $("#login-form input[type='password']").focus();
             } else {
                 $("#msg").innerHTML = "未知错误";
             }
@@ -23,7 +23,7 @@ function login() {
 }
 
 $.ready(function () {
-    $("#login-form button").addEventListener("click", function(e) {
+    $("#login-form .btn").addEventListener("click", function(e) {
         e.preventDefault();
         login();
     });
