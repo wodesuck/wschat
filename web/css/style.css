@@ -45,6 +45,10 @@ input:focus {
 }
 
 .btn {
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.33;
+    border-radius: 6px;
     color: #FFF;
     background-color: #428BCA;
     border: 1px solid #357EBD;
@@ -54,13 +58,6 @@ input:focus {
 
 .btn:hover, .btn:focus {
     background-color: #357EBD;
-}
-
-.btn-lg {
-    padding: 10px 16px;
-    font-size: 18px;
-    line-height: 1.33;
-    border-radius: 6px;
 }
 
 .alert {
