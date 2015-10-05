@@ -17,9 +17,8 @@ var participants = {
                     par.innerHTML = "";
                     list.forEach(function (user) {
                         var e = document.createElement("li");
-                        e.className = "show hide";
                         e.innerHTML = user;
-                        par.appendChild(e).classList.remove("hide");
+                        par.appendChild(e).show(100);
                     });
                 }
             }
@@ -32,10 +31,9 @@ var participants = {
             this.list.sort();
             var pos = this.list.indexOf(user);
             var e = document.createElement("li");
-            e.className = "show hide";
             e.innerHTML = user;
             var par = $("#participants");
-            par.insertBefore(e, par.childNodes[pos]).classList.remove("hide");
+            par.insertBefore(e, par.childNodes[pos]).show(100);
         } else {
             this.count[user]++;
         }
@@ -46,12 +44,10 @@ var participants = {
             delete this.count[user];
             var pos = this.list.indexOf(user);
             this.list.splice(pos, 1);
-            var par = $("#participants");
-            var e = par.childNodes[pos];
-            e.addEventListener("transitionend", function () {
-                par.removeChild(e);
+            var e = $("#participants").childNodes[pos];
+            e.hide(100, function () {
+                e.parentNode.removeChild(e);
             });
-            e.classList.add("hide");
         }
     }
 };
@@ -72,7 +68,7 @@ var chat = {
         } else if (message.type == 3) {
             var e = document.createElement("p");
             e.innerHTML = "<strong>" + message.sender + ": </strong>" + message.msg;
-            $("#chatlog").appendChild(e);
+            $("#chatlog").appendChild(e).show(100);
         }
     },
     send: function (message) {
@@ -82,7 +78,7 @@ var chat = {
 
 $.ready(function () {
     chat.connect();
-    $(".btn").addEventListener("click", function(e) {
+    $(".btn").addEventListener("click", function (e) {
         e.preventDefault();
         chat.send($("input").value);
         $("input").value = "";

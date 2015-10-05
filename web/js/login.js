@@ -1,5 +1,5 @@
 function login() {
-    $(".alert").classList.add("hide");
+    $(".alert").hide(100);
     var username = $("input[type='text']").value;
     var password = $("input[type='password']").value;
     $.post("a/login", {username: username, password: password}, function (res) {
@@ -17,12 +17,13 @@ function login() {
             } else {
                 $("#msg").innerHTML = "未知错误";
             }
-            $(".alert").classList.remove("hide");
+            $(".alert").show(100);
         }
     })
 }
 
 $.ready(function () {
+    $(".alert").hide();
     $(".btn").addEventListener("click", function(e) {
         e.preventDefault();
         login();

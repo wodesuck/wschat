@@ -61,3 +61,33 @@ $.post = function (url, data, success) {
         success: success
     })
 };
+
+Element.prototype.hide = function(time, fn) {
+    if (time === undefined) time = 0;
+    var e = this;
+    e.style.transform = "";
+    setTimeout(function() {
+        e.style.transitionDuration = time + "ms";
+        e.style.transform = "scale(0)";
+    }, 0);
+    setTimeout(function() {
+        e.removeAttribute("style");
+        e.style.display = "none";
+        if (fn) fn(e);
+    }, time);
+};
+
+Element.prototype.show = function(time, fn) {
+    if (time === undefined) time = 0;
+    var e = this;
+    e.style.display = "";
+    e.style.transform = "scale(0)";
+    setTimeout(function() {
+        e.style.transitionDuration = time + "ms";
+        e.style.transform = "";
+    }, 0);
+    setTimeout(function() {
+        e.removeAttribute("style");
+        if (fn) fn(e);
+    }, time);
+};

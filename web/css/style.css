@@ -73,12 +73,3 @@ input:focus {
     display: block;
     width: 100%;
 }
-
-.show {
-    transition: all .1s;
-}
-
-.hide {
-    transform: scale(0);
-    overflow: hidden;
-}

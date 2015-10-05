@@ -11,7 +11,7 @@
     <input class="block" type="text" placeholder="用户名" autofocus>
     <input class="block" type="password" placeholder="密码">
     <button class="btn block">登录</button>
-    <div class="alert show hide">
+    <div class="alert">
         <strong>登录失败！</strong><span id="msg"></span>
     </div>
 </form>
