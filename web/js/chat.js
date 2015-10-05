@@ -90,7 +90,7 @@ var chat = {
                 if (message.type == 3) {
                     var e = document.createElement("p");
                     e.appendChild(document.createElement("strong"));
-                    e.childNodes[0].innerHTML = message.sender + ": ";
+                    e.firstChild.innerHTML = message.sender + ": ";
                     e.innerHTML += message.msg;
                     var par = $("#chatlog");
                     par.insertBefore(e, par.firstChild).show(100);
