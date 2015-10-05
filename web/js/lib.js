@@ -44,21 +44,23 @@ $.ajax = function (options) {
     }
 };
 
-$.get = function (url, data, success) {
+$.get = function (url, data, success, error) {
     $.ajax({
         type: "GET",
         url: url,
         data: data,
-        success: success
+        success: success,
+        error: error
     })
 };
 
-$.post = function (url, data, success) {
+$.post = function (url, data, success, error) {
     $.ajax({
         type: "POST",
         url: url,
         data: data,
-        success: success
+        success: success,
+        error: error
     })
 };
 

@@ -3,23 +3,25 @@ var pop = {
     list: [],
     load: function () {
         $.get("a/participants", {}, function (res) {
-            if (res.err == 0) {
-                pop.count = {};
-                res.result.forEach(function (user) {
-                    if (!pop.count.hasOwnProperty(user)) pop.count[user] = 0;
-                    pop.count[user]++;
-                });
-                pop.list = Object.getOwnPropertyNames(pop.count).sort();
-                pop.list.sort();
-                var par = $("#participants");
-                par.innerHTML = "";
-                pop.list.forEach(function (user) {
-                    var e = document.createElement("li");
-                    e.innerHTML = user;
-                    par.appendChild(e).show(100);
-                });
+            if (res.err != 0) {
+                pop.load();
+                return;
             }
-        });
+            pop.count = {};
+            res.result.forEach(function (user) {
+                if (!pop.count.hasOwnProperty(user)) pop.count[user] = 0;
+                pop.count[user]++;
+            });
+            pop.list = Object.getOwnPropertyNames(pop.count).sort();
+            pop.list.sort();
+            var par = $("#participants");
+            par.innerHTML = "";
+            pop.list.forEach(function (user) {
+                var e = document.createElement("li");
+                e.innerHTML = user;
+                par.appendChild(e).show(100);
+            });
+        }, pop.load);
     },
     add: function (user) {
         if (!pop.count.hasOwnProperty(user)) {
