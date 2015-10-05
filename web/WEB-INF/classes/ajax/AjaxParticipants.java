@@ -15,12 +15,12 @@ import java.util.Collection;
 @WebServlet("/a/participants")
 public class AjaxParticipants extends HttpServlet {
     class Ret {
-        int ret;
+        int err;
         String msg;
         Collection<String> result;
 
         public Ret(int ret, String msg, Collection<String> result) {
-            this.ret = ret;
+            this.err = ret;
             this.msg = msg;
             this.result = result;
         }
