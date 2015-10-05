@@ -34,6 +34,10 @@ public class AjaxHistory extends HttpServlet {
         int from = -1;
         try {
             num = Integer.parseInt(request.getParameter("num"));
+        } catch (NumberFormatException ignored) {
+
+        }
+        try {
             from = Integer.parseInt(request.getParameter("from"));
         } catch (NumberFormatException ignored) {
 

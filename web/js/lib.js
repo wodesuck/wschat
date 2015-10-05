@@ -10,12 +10,17 @@ $.ready = function (fn) {
     }
 };
 
+function formatParams(params) {
+    return Object
+        .keys(params)
+        .map(function (key) {
+            return encodeURIComponent(key) + "=" + encodeURIComponent(params[key]);
+        })
+        .join("&");
+}
+
 $.ajax = function (options) {
     var request = new XMLHttpRequest();
-    request.open(options.type, options.url, true);
-    if (options.type == "POST" || options.type == "post") {
-        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-    }
 
     request.onreadystatechange = function () {
         if (this.readyState === 4) {
@@ -31,16 +36,15 @@ $.ajax = function (options) {
         }
     };
 
-    if (options.data) {
-        var params = [];
-        for (var p in options.data) {
-            if (options.data.hasOwnProperty(p)) {
-                params.push(encodeURIComponent(p) + "=" + encodeURIComponent(options.data[p]));
-            }
-        }
-        request.send(params.join("&"));
-    } else {
+    var params = "";
+    if (options.data) params = formatParams(options.data);
+    if (options.type == "get" || options.type == "GET") {
+        request.open(options.type, options.url + "?" + params, true);
         request.send();
+    } else {
+        request.open(options.type, options.url, true);
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        request.send(params);
     }
 };
 
@@ -64,31 +68,31 @@ $.post = function (url, data, success, error) {
     })
 };
 
-Element.prototype.hide = function(time, fn) {
+Element.prototype.hide = function (time, fn) {
     if (time === undefined) time = 0;
     var e = this;
     e.style.transform = "";
-    setTimeout(function() {
+    setTimeout(function () {
         e.style.transitionDuration = time + "ms";
         e.style.transform = "scale(0)";
     }, 0);
-    setTimeout(function() {
+    setTimeout(function () {
         e.removeAttribute("style");
         e.style.display = "none";
         if (fn) fn(e);
     }, time);
 };
 
-Element.prototype.show = function(time, fn) {
+Element.prototype.show = function (time, fn) {
     if (time === undefined) time = 0;
     var e = this;
     e.style.display = "";
     e.style.transform = "scale(0)";
-    setTimeout(function() {
+    setTimeout(function () {
         e.style.transitionDuration = time + "ms";
         e.style.transform = "";
     }, 0);
-    setTimeout(function() {
+    setTimeout(function () {
         e.removeAttribute("style");
         if (fn) fn(e);
     }, time);

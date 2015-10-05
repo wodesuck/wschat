@@ -52,6 +52,7 @@ var pop = {
 };
 
 var chat = {
+    messages: [],
     connect: function () {
         var wsurl = "ws" + /:.*\//.exec(location) + "wschat";
         chat.ws = new WebSocket(wsurl);
@@ -60,6 +61,7 @@ var chat = {
     },
     recv: function (message) {
         message = JSON.parse(message.data);
+        chat.messages.push(message);
         if (message.type == 1) {
             pop.add(message.sender);
         } else if (message.type == 2) {
@@ -67,17 +69,39 @@ var chat = {
         } else if (message.type == 3) {
             var e = document.createElement("p");
             e.appendChild(document.createElement("strong"));
-            e.childNodes[0].innerHTML = message.sender + ": ";
+            e.firstChild.innerHTML = message.sender + ": ";
             e.innerHTML += message.msg;
             $("#chatlog").appendChild(e).show(100);
         }
     },
     send: function (message) {
         chat.ws.send(JSON.stringify({type: 3, msg: message}));
+    },
+    fetch: function () {
+        var param = {};
+        if (chat.messages.length > 0) param.from = chat.messages[0].stamp;
+        $.get("a/history", param, function (res) {
+            if (res.err != 0) {
+                chat.fetch();
+                return;
+            }
+            res.result.forEach(function (message) {
+                chat.messages.unshift(message);
+                if (message.type == 3) {
+                    var e = document.createElement("p");
+                    e.appendChild(document.createElement("strong"));
+                    e.childNodes[0].innerHTML = message.sender + ": ";
+                    e.innerHTML += message.msg;
+                    var par = $("#chatlog");
+                    par.insertBefore(e, par.firstChild).show(100);
+                }
+            });
+        }, chat.fetch);
     }
 };
 
 $.ready(function () {
+    chat.fetch();
     chat.connect();
     $(".btn").addEventListener("click", function (e) {
         e.preventDefault();
