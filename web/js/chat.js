@@ -14,7 +14,7 @@ var pop = {
             });
             pop.list = Object.getOwnPropertyNames(pop.count).sort();
             pop.list.sort();
-            var par = $("#participants");
+            var par = $("#sidebar ul");
             par.innerHTML = "";
             pop.list.forEach(function (user) {
                 var e = document.createElement("li");
@@ -31,7 +31,7 @@ var pop = {
             var pos = pop.list.indexOf(user);
             var e = document.createElement("li");
             e.innerHTML = user;
-            var par = $("#participants");
+            var par = $("#sidebar ul");
             par.insertBefore(e, par.childNodes[pos]).show(100);
         } else {
             pop.count[user]++;
@@ -43,7 +43,7 @@ var pop = {
             delete pop.count[user];
             var pos = pop.list.indexOf(user);
             pop.list.splice(pos, 1);
-            var e = $("#participants").childNodes[pos];
+            var e = $("#sidebar ul").childNodes[pos];
             e.hide(100, function () {
                 e.parentNode.removeChild(e);
             });

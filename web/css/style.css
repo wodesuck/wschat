@@ -9,10 +9,13 @@ body {
 }
 
 a {
+    color: inherit;
     background-color: transparent;
+    text-decoration: none;
 }
 
 a:active, a:hover {
+    color: inherit;
     outline: 0;
 }
 
@@ -50,14 +53,14 @@ input:focus {
     line-height: 1.33;
     border-radius: 6px;
     color: #FFF;
-    background-color: #428BCA;
-    border: 1px solid #357EBD;
+    background-color: #8C8861;
+    border: 1px solid #7D7957;
     text-align: center;
     cursor: pointer;
 }
 
 .btn:hover, .btn:focus {
-    background-color: #357EBD;
+    background-color: #7D7957;
 }
 
 .alert {
@@ -72,4 +75,16 @@ input:focus {
 .block {
     display: block;
     width: 100%;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.clear {
+    clear: both;
 }

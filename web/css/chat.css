@@ -1,0 +1,83 @@
+body, #header-container {
+    padding: 0 20px;
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+body {
+    padding-top: 70px;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background: #8C8861;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+    color: #FFF;
+    font-size: 16px;
+    line-height: 50px;
+}
+
+header h1 {
+    font-size: 20px;
+    font-weight: normal;
+    line-height: 20px;
+}
+
+header span {
+    margin-right: 10px;
+}
+
+header a {
+    background: rgba(0,0,0,0.15);
+    padding: 8px 13px;
+    border-radius: 4px;
+}
+
+header a:hover {
+    background: rgba(0,0,0,0.25);
+}
+
+main {
+    position: relative;
+    height: 100%;
+    width: 80%;
+}
+
+#sidebar {
+    width: 20%;
+}
+
+#chatlog {
+    overflow-y: scroll;
+    position: absolute;
+    top: 0;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+    font-size: 16px;
+}
+
+#input-container {
+    position: absolute;
+    left: 0;
+    right: 75px;
+    bottom: 5px;
+    height: 45px;
+}
+
+input {
+    width: 100%;
+    height: 100%;
+}
+
+button {
+    position: absolute;
+    right: 0;
+    bottom: 5px;
+    width: 70px;
+    height: 45px;
+}

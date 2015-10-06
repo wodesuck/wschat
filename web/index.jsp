@@ -15,17 +15,22 @@
 </head>
 <body>
 <header>
-    <h1>wschat</h1>
-    <span><%=username%></span>
-    <a href="logout.jsp">logout</a>
+    <div id="header-container">
+        <h1 class="left">wschat</h1>
+        <hgroup class="right">
+            <span><%=username%></span>
+            <a href="logout.jsp">登出</a>
+        </hgroup>
+        <div class="clear"></div>
+    </div>
 </header>
-<main>
+<main class="left">
     <div id="chatlog"></div>
-    <input type="text" autofocus>
+    <div id="input-container"><input type="text" autofocus></div>
     <button class="btn">发送</button>
 </main>
-<div>
-    <ul id="participants"></ul>
+<div id="sidebar" class="right">
+    <ul></ul>
 </div>
 <script src="js/lib.js"></script>
 <script src="js/chat.js"></script>
