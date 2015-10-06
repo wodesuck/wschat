@@ -24,7 +24,7 @@ function login() {
 
 $.ready(function () {
     $(".alert").hide();
-    $(".btn").addEventListener("click", function(e) {
+    $("button").addEventListener("click", function(e) {
         e.preventDefault();
         login();
     });

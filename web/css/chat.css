@@ -69,12 +69,12 @@ main {
     height: 45px;
 }
 
-input {
+main input {
     width: 100%;
     height: 100%;
 }
 
-button {
+main button {
     position: absolute;
     right: 0;
     bottom: 5px;

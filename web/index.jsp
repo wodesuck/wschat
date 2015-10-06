@@ -27,7 +27,7 @@
 <main class="left">
     <div id="chatlog"></div>
     <div id="input-container"><input type="text" autofocus></div>
-    <button class="btn">发送</button>
+    <button>发送</button>
 </main>
 <div id="sidebar" class="right">
     <ul></ul>

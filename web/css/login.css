@@ -7,6 +7,11 @@ form {
     margin: 0 auto;
 }
 
+form input, form button {
+    display: block;
+    width: 100%;
+}
+
 input[type="text"] {
     margin-bottom: -1px;
     border-bottom-left-radius: 0;
