@@ -71,7 +71,9 @@ var chat = {
             e.appendChild(document.createElement("strong"));
             e.firstChild.innerHTML = message.sender + ": ";
             e.innerHTML += message.msg;
-            $("#chatlog").appendChild(e).show(100);
+            var par = $("#chatlog");
+            par.appendChild(e).show(100);
+            par.scrollTop =  par.scrollHeight;
         }
     },
     send: function (message) {
@@ -94,6 +96,7 @@ var chat = {
                     e.innerHTML += message.msg;
                     var par = $("#chatlog");
                     par.insertBefore(e, par.firstChild).show(100);
+                    par.scrollTop = 0;
                 }
             });
         }, chat.fetch);
