@@ -30,6 +30,7 @@
     <button>发送</button>
 </main>
 <div id="sidebar" class="right">
+    <h2>在线用户</h2>
     <ul></ul>
 </div>
 <script src="js/lib.js"></script>
