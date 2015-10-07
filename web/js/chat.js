@@ -99,6 +99,29 @@ var chat = {
                     par.scrollTop = 0;
                 }
             });
+            var e = $(".load-more");
+            if (e) $("#chatlog").removeChild(e);
+            var e = document.createElement("div");
+            e.className = "load-more";
+            e.appendChild(document.createElement("button"));
+            if (res.result.length > 0) {
+                e.firstChild.innerHTML = "加载更多";
+                e.firstChild.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    var progress = document.createElement("div");
+                    progress.className = "progress-container";
+                    progress.appendChild(document.createElement("div"));
+                    progress.firstChild.className = "progress";
+                    this.parentNode.replaceChild(progress, this);
+                    setTimeout(chat.fetch, 300);
+                });
+            } else {
+                e.firstChild.innerHTML = "到顶了...";
+                e.firstChild.setAttribute("disabled", "");
+            }
+            var par = $("#chatlog");
+            par.insertBefore(e, par.firstChild).show(100);
+            par.scrollTop = 0;
         }, chat.fetch);
     }
 };
