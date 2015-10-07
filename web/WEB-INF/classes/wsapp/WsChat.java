@@ -47,7 +47,7 @@ public class WsChat {
     }
 
     @OnClose
-    public void onClose(Session session) throws IOException {
+    public void onClose(Session session) {
         if (username == null) {
             return;
         }
@@ -60,20 +60,24 @@ public class WsChat {
     }
 
     @OnMessage
-    public void onMessage(String msg) throws IOException {
+    public void onMessage(String msg) {
         Gson gson = new Gson();
         Message message = gson.fromJson(msg, Message.class);
         broadcast(message);
     }
 
-    void broadcast(Message message) throws IOException {
+    void broadcast(Message message) {
         message.setSender(username);
         message.setStamp(stamp.incrementAndGet());
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(message);
         for (Session session : sessions.keySet()) {
-            session.getBasicRemote().sendText(json);
+            try {
+                session.getBasicRemote().sendText(json);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         if (message.getType() > 2) {
