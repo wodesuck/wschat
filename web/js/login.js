@@ -4,7 +4,7 @@ function login() {
     var password = $("input[type='password']").value;
     $.post("a/login", {username: username, password: password}, function (res) {
         if (res.err == 0) {
-            window.location = "index.jsp";
+            location = /.*\//.exec(location) ;
         } else {
             if (res.err == -1) {
                 $("#msg").innerHTML = "用户不存在";
