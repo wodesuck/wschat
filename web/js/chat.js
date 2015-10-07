@@ -14,12 +14,10 @@ var pop = {
             });
             pop.list = Object.getOwnPropertyNames(pop.count).sort();
             pop.list.sort();
-            var par = $("#sidebar ul");
-            par.innerHTML = "";
+            var sidebar = $("#sidebar ul");
+            sidebar.innerHTML = "";
             pop.list.forEach(function (user) {
-                var e = document.createElement("li");
-                e.innerHTML = user;
-                par.appendChild(e).show(100);
+                sidebar.appendChild(createUserElement(user)).show(100);
             });
         }, pop.load);
     },
@@ -29,10 +27,8 @@ var pop = {
             pop.list.push(user);
             pop.list.sort();
             var pos = pop.list.indexOf(user);
-            var e = document.createElement("li");
-            e.innerHTML = user;
-            var par = $("#sidebar ul");
-            par.insertBefore(e, par.childNodes[pos]).show(100);
+            var sidebar = $("#sidebar ul");
+            sidebar.insertBefore(createUserElement(user), sidebar.childNodes[pos]).show(100);
         } else {
             pop.count[user]++;
         }
@@ -43,9 +39,9 @@ var pop = {
             delete pop.count[user];
             var pos = pop.list.indexOf(user);
             pop.list.splice(pos, 1);
-            var e = $("#sidebar ul").childNodes[pos];
-            e.hide(100, function () {
-                e.parentNode.removeChild(e);
+            var sidebar = $("#sidebar ul");
+            sidebar.childNodes[pos].hide(100, function (e) {
+                sidebar.removeChild(e);
             });
         }
     }
@@ -67,13 +63,9 @@ var chat = {
         } else if (message.type == 2) {
             pop.remove(message.sender);
         } else if (message.type == 3) {
-            var e = document.createElement("p");
-            e.appendChild(document.createElement("strong"));
-            e.firstChild.innerHTML = message.sender + ": ";
-            e.innerHTML += message.msg;
-            var par = $("#chatlog");
-            par.appendChild(e).show(100);
-            par.scrollTop =  par.scrollHeight;
+            var chatlog = $("#chatlog");
+            chatlog.appendChild(createMsgElement(message)).show(100);
+            chatlog.scrollTop = chatlog.scrollHeight;
         }
     },
     send: function (message) {
@@ -87,43 +79,61 @@ var chat = {
                 chat.fetch();
                 return;
             }
-            if ($(".load-more")) $("#chatlog").removeChild($(".load-more"));
+            var chatlog = $("#chatlog");
+            var loadmore = $(".load-more");
+            if (loadmore) chatlog.removeChild(loadmore);
             res.result.forEach(function (message) {
                 chat.messages.unshift(message);
                 if (message.type == 3) {
-                    var e = document.createElement("p");
-                    e.appendChild(document.createElement("strong"));
-                    e.firstChild.innerHTML = message.sender + ": ";
-                    e.innerHTML += message.msg;
-                    var par = $("#chatlog");
-                    par.insertBefore(e, par.firstChild).show(100);
-                    par.scrollTop = 0;
+                    chatlog.insertBefore(createMsgElement(message), chatlog.firstChild).show(100);
+                    chatlog.scrollTop = 0;
                 }
             });
-            var e = document.createElement("div");
-            e.className = "load-more";
-            e.appendChild(document.createElement("button"));
-            if (res.result.length > 0) {
-                e.firstChild.innerHTML = "加载更多";
-                e.firstChild.addEventListener("click", function (e) {
-                    e.preventDefault();
-                    var progress = document.createElement("div");
-                    progress.className = "progress-container";
-                    progress.appendChild(document.createElement("div"));
-                    progress.firstChild.className = "progress";
-                    this.parentNode.replaceChild(progress, this);
-                    setTimeout(chat.fetch, 300);
-                });
-            } else {
-                e.firstChild.innerHTML = "到顶了...";
-                e.firstChild.setAttribute("disabled", "");
-            }
-            var par = $("#chatlog");
-            par.insertBefore(e, par.firstChild).show(100);
-            par.scrollTop = 0;
+            chatlog.insertBefore(createLoadMoreElement(res.result.length > 0), chatlog.firstChild).show(100);
+            chatlog.scrollTop = 0;
         }, chat.fetch);
     }
 };
+
+function createUserElement(user) {
+    var e = document.createElement("li");
+    e.innerHTML = user;
+    return e;
+}
+
+function createMsgElement(message) {
+    var e = document.createElement("p");
+    e.appendChild(document.createElement("strong"));
+    e.firstChild.innerHTML = message.sender + ": ";
+    e.innerHTML += message.msg;
+    return e;
+}
+
+function createLoadMoreElement(hasMore) {
+    var e = document.createElement("div");
+    e.className = "load-more";
+    e.appendChild(document.createElement("button"));
+    if (hasMore) {
+        e.firstChild.innerHTML = "加载更多";
+        e.firstChild.addEventListener("click", function (e) {
+            e.preventDefault();
+            this.parentNode.replaceChild(createProgressElement(), this);
+            setTimeout(chat.fetch, 300);
+        });
+    } else {
+        e.firstChild.innerHTML = "到顶了...";
+        e.firstChild.setAttribute("disabled", "");
+    }
+    return e;
+}
+
+function createProgressElement() {
+    var e = document.createElement("div");
+    e.className = "progress-container";
+    e.appendChild(document.createElement("div"));
+    e.firstChild.className = "progress";
+    return e;
+}
 
 $.ready(function () {
     chat.fetch();
