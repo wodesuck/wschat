@@ -50,7 +50,7 @@ main {
 #sidebar {
     width: 20%;
     height: 100%;
-    overflow: auto;
+    overflow-y: auto;
 }
 
 #chatlog {
@@ -68,7 +68,7 @@ main {
     left: 0;
     right: 75px;
     bottom: 5px;
-    height: 45px;
+    height: 40px;
 }
 
 main input {
@@ -81,7 +81,8 @@ main button {
     right: 0;
     bottom: 5px;
     width: 70px;
-    height: 45px;
+    height: 40px;
+    padding: 0;
 }
 
 #sidebar>* {
