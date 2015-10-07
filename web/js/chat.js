@@ -87,6 +87,7 @@ var chat = {
                 chat.fetch();
                 return;
             }
+            if ($(".load-more")) $("#chatlog").removeChild($(".load-more"));
             res.result.forEach(function (message) {
                 chat.messages.unshift(message);
                 if (message.type == 3) {
@@ -99,8 +100,6 @@ var chat = {
                     par.scrollTop = 0;
                 }
             });
-            var e = $(".load-more");
-            if (e) $("#chatlog").removeChild(e);
             var e = document.createElement("div");
             e.className = "load-more";
             e.appendChild(document.createElement("button"));
