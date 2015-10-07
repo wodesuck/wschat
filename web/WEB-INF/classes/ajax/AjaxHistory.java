@@ -28,6 +28,7 @@ public class AjaxHistory extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         int num = 10;

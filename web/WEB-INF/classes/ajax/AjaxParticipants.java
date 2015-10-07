@@ -27,6 +27,7 @@ public class AjaxParticipants extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setCharacterEncoding("utf-8");
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         Gson gson = new Gson();
