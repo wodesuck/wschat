@@ -106,7 +106,7 @@ var chat = {
 $.ready(function () {
     chat.fetch();
     chat.connect();
-    $("main button").addEventListener("click", function (e) {
+    $("main form button").addEventListener("click", function (e) {
         e.preventDefault();
         chat.send($("input").value);
         $("input").value = "";

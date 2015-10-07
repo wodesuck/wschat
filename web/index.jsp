@@ -26,8 +26,10 @@
 </header>
 <main class="left">
     <div id="chatlog"></div>
-    <div id="input-container"><input type="text" autofocus></div>
-    <button>发送</button>
+    <form>
+        <div id="input-container"><input type="text" autofocus></div>
+        <button type="submit">发送</button>
+    </form>
 </main>
 <div id="sidebar" class="right">
     <h2>在线用户</h2>
