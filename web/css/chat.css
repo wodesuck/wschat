@@ -50,6 +50,7 @@ main {
 #sidebar {
     width: 20%;
     height: 100%;
+    overflow: auto;
 }
 
 #chatlog {
@@ -84,12 +85,20 @@ main button {
 }
 
 #sidebar>* {
-    padding-left: 40px;
+    margin-left: 40px;
+}
+
+#sidebar h2 {
+    color: #8C8861;
+    border: 2px solid #8C8861;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 #sidebar ul {
-    margin-top: 20px;
-    overflow: auto;
+    margin-top: 5px;
 }
 
 #sidebar li {
