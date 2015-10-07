@@ -10,7 +10,7 @@
 <form>
     <input type="text" placeholder="用户名" autofocus>
     <input type="password" placeholder="密码">
-    <button>登录</button>
+    <button type="submit">登录</button>
     <div class="alert">
         <strong>登录失败！</strong><span id="msg"></span>
     </div>
