@@ -19,6 +19,6 @@
     </div>
 </form>
 <script src="js/lib.js"></script>
-<script src="js/password.js"></script>
+<script src="js/passwd.js"></script>
 </body>
 </html>

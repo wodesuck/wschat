@@ -22,7 +22,7 @@
         <h1 class="left">wschat</h1>
         <hgroup class="right">
             <span><%=username%></span>
-            <a href="password.jsp">修改密码</a>
+            <a href="passwd.jsp">修改密码</a>
             <a href="logout.jsp">登出</a>
         </hgroup>
         <div class="clear"></div>
