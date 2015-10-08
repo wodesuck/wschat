@@ -12,17 +12,17 @@ input, button {
     width: 100%;
 }
 
-input[name="oldpassword"] {
+input[name="password-old"] {
     margin-bottom: 10px;
 }
 
-input[name="newpassword"] {
+input[name="password"] {
     margin-bottom: -1px;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
 
-input[name="newpasswordrepeat"] {
+input[name="password-repeat"] {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;

@@ -1,21 +1,21 @@
 function passwd() {
     $(".alert").hide(100);
-    var oldpassword = $("input[name='oldpassword']").value;
-    var password = $("input[name='newpassword']").value;
-    var passwordrepeat = $("input[name='newpasswordrepeat']").value;
+    var oldpassword = $("input[name='password-old']").value;
+    var password = $("input[name='password']").value;
+    var passwordRepeat = $("input[name='password-repeat']").value;
     if (oldpassword == "" || password == "") {
         $("#msg").innerHTML = " 密码不能为空 ";
         if (oldpassword == "") {
-            $("input[name='oldpassword']").focus();
+            $("input[name='password-old']").focus();
         } else {
-            $("input[name='newpassword']").focus();
+            $("input[name='password']").focus();
         }
         $(".alert").show(100);
-    } else if (password != passwordrepeat) {
+    } else if (password != passwordRepeat) {
         $("#msg").innerHTML = " 两次密码不一致 ";
-        $("input[name='newpassword']").value = "";
-        $("input[name='newpasswordrepeat']").value = "";
-        $("input[name='newpassword']").focus();
+        $("input[name='password']").value = "";
+        $("input[name='password-repeat']").value = "";
+        $("input[name='password']").focus();
         $(".alert").show(100);
     } else {
         $.post("a/passwd", {oldpassword: oldpassword, password: password}, function (res) {
@@ -26,8 +26,8 @@ function passwd() {
                     $("#msg").innerHTML = "请先登录";
                 } else if (res.err == -2) {
                     $("#msg").innerHTML = "旧密码错误";
-                    $("input[name='oldpassword']").value = "";
-                    $("input[name='oldpassword']").focus();
+                    $("input[name='password-old']").value = "";
+                    $("input[name='password-old']").focus();
                 } else {
                     $("#msg").innerHTML = "未知错误";
                 }

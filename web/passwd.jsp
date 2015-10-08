@@ -10,10 +10,10 @@
 </head>
 <body>
 <form>
-    <input type="password" name="oldpassword" placeholder="旧密码" autofocus>
-    <input type="password" name="newpassword" placeholder="新密码">
-	<input type="password" name="newpasswordrepeat" placeholder="再次输入新密码">
-    <button type="submit">修改</button>
+    <input type="password" name="password-old" placeholder="旧密码" autofocus>
+    <input type="password" name="password" placeholder="新密码">
+	<input type="password" name="password-repeat" placeholder="再次输入新密码">
+    <button type="submit">修改密码</button>
     <div class="alert">
         <strong>修改失败！</strong><span id="msg"></span>
     </div>

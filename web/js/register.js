@@ -2,7 +2,7 @@ function register() {
     $(".alert").hide(100);
     var username = $("input[type='text']").value;
     var password = $("input[name='password']").value;
-    var passwordrepeat = $("input[name='passwordrepeat']").value;
+    var passwordRepeat = $("input[name='password-repeat']").value;
     if (username == "" || password == "") {
         $("#msg").innerHTML = " 账号密码不能为空";
         if (username == "") {
@@ -11,10 +11,10 @@ function register() {
             $("input[name='password']").focus();
         }
         $(".alert").show(100);
-    } else if (password != passwordrepeat) {
+    } else if (password != passwordRepeat) {
         $("#msg").innerHTML = " 密码不一致";
         $("input[name='password']").value = "";
-        $("input[name='passwordrepeat']").value = "";
+        $("input[name='password-repeat']").value = "";
         $("input[name='password']").focus();
         $(".alert").show(100);
     } else {

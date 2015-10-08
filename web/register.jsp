@@ -12,7 +12,7 @@
 <form>
     <input type="text"  placeholder="用户名" autofocus>
     <input type="password" name="password" placeholder="密码">
-	<input type="password" name="passwordrepeat" placeholder="再次输入密码">
+	<input type="password" name="password-repeat" placeholder="再次输入密码">
     <button type="submit">注册</button>
     <a href="login.jsp">已有帐号？登录</a>
     <div class="alert">
