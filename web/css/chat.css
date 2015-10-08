@@ -1,4 +1,9 @@
-body, #header-container {
+html, body {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+body, .header-container {
     padding: 0 20px;
     max-width: 1024px;
     margin: 0 auto;
@@ -50,6 +55,8 @@ main {
 #sidebar {
     width: 20%;
     height: 100%;
+    box-sizing: border-box;
+    padding-left: 40px;
     overflow-y: auto;
 }
 
@@ -69,7 +76,7 @@ main form {
     width: 100%;
 }
 
-#input-container {
+.input-container {
     position: absolute;
     left: 0;
     right: 75px;
@@ -87,10 +94,6 @@ main form button {
     width: 70px;
     height: 100%;
     padding: 0;
-}
-
-#sidebar>* {
-    margin-left: 40px;
 }
 
 #sidebar h2 {

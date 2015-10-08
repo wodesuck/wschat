@@ -7,15 +7,18 @@
         return;
     }
 %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>wschat</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/chat.css" rel="stylesheet">
 </head>
 <body>
 <header>
-    <div id="header-container">
+    <div class="header-container">
         <h1 class="left">wschat</h1>
         <hgroup class="right">
             <span><%=username%></span>
@@ -27,7 +30,7 @@
 <main class="left">
     <div id="chatlog"></div>
     <form>
-        <div id="input-container"><input type="text" autofocus></div>
+        <div class="input-container"><input type="text" autofocus></div>
         <button type="submit">发送</button>
     </form>
 </main>
