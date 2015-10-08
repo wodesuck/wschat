@@ -14,6 +14,7 @@
     <input type="password" name="password" placeholder="密码">
 	<input type="password" name="passwordrepeat" placeholder="再次输入密码">
     <button type="submit">注册</button>
+    <a href="login.jsp">已有帐号？登录</a>
     <div class="alert">
         <strong>注册失败!</strong><span id="msg"></span>
     </div>
