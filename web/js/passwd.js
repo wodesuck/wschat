@@ -1,4 +1,4 @@
-function login() {
+function passwd() {
     $(".alert").hide(100);
     var oldpassword = $("input[name='oldpassword']").value;
     var password = $("input[name='newpassword']").value;
@@ -39,6 +39,6 @@ $.ready(function () {
     $(".alert").hide();
     $("button").addEventListener("click", function(e) {
         e.preventDefault();
-        login();
+        passwd();
     });
 });
