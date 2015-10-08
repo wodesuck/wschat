@@ -140,8 +140,9 @@ $.ready(function () {
     chat.connect();
     $("main form button").addEventListener("click", function (e) {
         e.preventDefault();
-        chat.send($("input").value);
-        $("input").value = "";
-        $("input").focus();
+        var input = $("input");
+        if (input.value.length > 0) chat.send(input.value);
+        input.value = "";
+        input.focus();
     });
 });
