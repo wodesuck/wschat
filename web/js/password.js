@@ -2,7 +2,7 @@ function login() {
     $(".alert").hide(100);
     var oldpassword = $("input[name='oldpassword']").value;
     var password = $("input[name='newpassword']").value;
-    $.post("a/passwd", {username: username, password: password}, function (res) {
+    $.post("a/passwd", {oldpassword: oldpassword, password: password}, function (res) {
         if (res.err == 0) {
             location = /.*\//.exec(location) ;
         } else {
