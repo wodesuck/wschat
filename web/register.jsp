@@ -10,8 +10,9 @@
 </head>
 <body>
 <form>
-    <input type="text" placeholder="用户名" autofocus>
-    <input type="password" placeholder="密码">
+    <input type="text"  placeholder="用户名" autofocus>
+    <input type="password" name="password" placeholder="密码">
+	<input type="password" name="passwordrepeat" placeholder="再次输入密码">
     <button type="submit">注册</button>
     <div class="alert">
         <strong>注册失败!</strong><span id="msg"></span>

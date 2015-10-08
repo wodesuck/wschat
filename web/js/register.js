@@ -1,11 +1,15 @@
 function register() {
     $(".alert").hide(100);
     var username = $("input[type='text']").value;
-    var password = $("input[type='password']").value;
+    var password = $("input[name='password']").value;
+	var passwordrepeat = $("input[name='passwordrepeat']").value;
 	if(username == "" || password == ""){
 		$("#msg").innerHTML = " 账号密码不能为空" ;
 		$(".alert").show(100);
-	} else {
+	}else if(password != passwordrepeat){
+		$("#msg").innerHTML = " 密码不一致" ;
+		$(".alert").show(100);
+	}else {
 		$.post("a/register", {username: username, password: password}, function (res) {
 			if (res.err == 0) {
 				location = /.*\//.exec(location) ;
